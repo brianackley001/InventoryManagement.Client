@@ -1,0 +1,13 @@
+{
+  "id": 0,
+  "subscriptionId": 0,
+  "name": null,
+  "description": null,
+  "amountValue": 0,
+  "createDate": "2000-01-01T00:00:00",
+  "updateDate": "2000-01-01T00:00:00",
+  "isActive": true,
+  "tags": [],
+  "groups": [],
+  "shoppingLists": []
+}

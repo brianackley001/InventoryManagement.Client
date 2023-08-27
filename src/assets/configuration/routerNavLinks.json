@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Items",
+        "route": "items",
+        "icon": "mdi-card-text"
+    },
+    {
+        "id": 2,
+        "title": "Groups",
+        "route": "groups",
+        "icon": "mdi-group"
+    },
+    {
+        "id": 3,
+        "title": "Tags",
+        "route": "tags",
+        "icon": "mdi-label"
+    },
+    {
+        "id": 4,
+        "title": "Shopping Lists",
+        "route": "shopping-lists",
+        "icon": "mdi-cart"
+    }
+]

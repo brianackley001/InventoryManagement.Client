@@ -1,0 +1,9 @@
+[
+    {"id": 55, "name": "Costco - 11-09-2019", "status": "active", "completedDate": null, "groups": [1]},
+    {"id": 73, "name": "Costco - 11-20-2019", "status": "active", "completedDate": null, "groups": [1]},
+    {"id": 12, "name": "Costco - 09-28-2019", "status": "completed", "completedDate": "09-30-2019", "groups": [1]},
+    {"id": 9, "name": "Costco - 08-14-2019", "status": "completed", "completedDate": "08-14-2019", "groups": [1]},
+    {"id": 73, "name": "QFC - 11-23-2019", "status": "active", "completedDate": null, "groups": [2]},
+    {"id": 71, "name": "QFC - 07-12-2019", "status": "completed", "completedDate": "07-15-2019", "groups": [2]},
+    {"id": 43, "name": "PCC - 11-02-2019", "status": "active", "completedDate": null, "groups": [3]}
+]

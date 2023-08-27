@@ -1,0 +1,122 @@
+trigger:
+- '*'
+
+variables:
+  buildConfiguration: 'Release'
+  sourceBranchName: 'develop'
+  releaseBranchName: 'master'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: 'Build'
+  displayName: 'Client Build'
+  jobs:
+  - job: 'InstallBuild'
+    displayName: 'Install and Build'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script:  npm install
+      displayName: 'npm install'
+      
+    - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
+      displayName: 'Write build info'
+
+    - script: npm run uat-build
+      displayName: 'npm run uat-build'
+      condition: and(succeeded(),ne(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive Pre-Prod files'
+      condition:  and(succeeded(), ne(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber)_preprod_dist.zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Pre-Prod artifacts: drop'
+      condition:  and(succeeded(),ne(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+
+    - script:  npm run production-build
+      displayName: 'npm build PROD'
+      condition:  and(succeeded(),eq(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive PROD files'
+      condition: and(succeeded(),eq(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber)_prod_dist.zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish PROD artifacts: drop'
+      condition:  and(succeeded(),eq(variables['Build.SourceBranchName'], variables['releaseBranchName'])) 
+
+
+- stage: 'FeatureRelease'
+  displayName: 'Trigger Feature Branch Release'
+  dependsOn: Build
+  condition: and(succeeded(), ne(variables['Build.SourceBranchName'], variables['sourceBranchName']), ne(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-16.04'
+    environment: FeatureDev
+    variables:
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop 
+
+- stage: 'UatRelease'
+  displayName: 'Trigger UAT Release'
+  dependsOn: Build
+  condition: and(succeeded(),eq(variables['Build.SourceBranchName'], variables['sourceBranchName']))
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-16.04'
+    environment: UAT
+    variables:
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop 
+
+
+
+- stage: 'ProductionRelease'
+  displayName: 'Trigger Production Release'
+  dependsOn: Build
+  condition: and(succeeded(),eq(variables['Build.SourceBranchName'], variables['releaseBranchName']))
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-16.04'
+    environment: Production
+    variables:
+    - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+

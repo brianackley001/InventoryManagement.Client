@@ -1,0 +1,6 @@
+[
+    {"id": 1, "name": "Costco", "status":"active"},
+    {"id": 2, "name": "QFC", "status":"active"},
+    {"id": 3, "name": "PCC", "status":"active"},
+    {"id": 4, "name": "Safeway", "status":"inactive"}
+]

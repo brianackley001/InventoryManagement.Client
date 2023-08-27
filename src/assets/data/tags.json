@@ -1,0 +1,8 @@
+[
+    [
+        {"id": 1, "name": "Produce", "status":"active"},
+        {"id": 2, "name": "Home", "status":"active"},
+        {"id": 3, "name": "Misc", "status":"active"},
+        {"id": 4, "name": "Paint", "status":"inactive"}
+    ]
+]

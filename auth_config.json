@@ -1,0 +1,5 @@
+{
+    "domain": "{PULL_SENESITIVE_KEYS_FROM_A_KEY_VAULT}",
+    "clientId": "{PULL_SENESITIVE_KEYS_FROM_A_KEY_VAULT}",
+    "audience": "{PULL_SENESITIVE_KEYS_FROM_A_KEY_VAULT}"
+  }

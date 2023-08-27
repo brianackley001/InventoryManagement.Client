@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListItem - Read Mode should match snapshot 1`] = `
+<div class="list-view-item-container">
+  <div tabindex="-1" class="v-list-item theme--light">
+    <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;"><i aria-hidden="true" class="v-icon notranslate white mdi mdi-gauge-empty theme--light red--text text--darken-1"></i> <i aria-hidden="true" class="v-icon notranslate light-blue lighten-5 mdi mdi-check-circle-outline theme--light" style="display: none;"></i></div>
+    <div class="v-list-item__content">
+      <div class="v-list-item__title">Test Name</div>
+      <div class="v-list-item__subtitle"><span><span item="Costco" class="group">Costco</span> <span item="Food" class="tag">Food</span></span>
+        Test Description summary text
+      </div>
+    </div>
+  </div>
+  <hr role="separator" aria-orientation="horizontal" class="v-divider v-divider--inset theme--light">
+</div>
+`;
+
+exports[`ListItem.vue should match snapshot 1`] = `
+<div class="list-view-item-container">
+  <div tabindex="-1" class="v-list-item theme--light">
+    <div class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;"><i aria-hidden="true" class="v-icon notranslate white mdi mdi-gauge-empty theme--light red--text text--darken-1"></i> <i aria-hidden="true" class="v-icon notranslate light-blue lighten-5 mdi mdi-check-circle-outline theme--light" style="display: none;"></i></div>
+    <div class="v-list-item__content">
+      <div class="v-list-item__title">Test Name</div>
+      <div class="v-list-item__subtitle"><span><span item="Costco" class="group">Costco</span> <span item="Food" class="tag">Food</span></span>
+        Test Description summary text
+      </div>
+    </div>
+  </div>
+  <hr role="separator" aria-orientation="horizontal" class="v-divider v-divider--inset theme--light">
+</div>
+`;
